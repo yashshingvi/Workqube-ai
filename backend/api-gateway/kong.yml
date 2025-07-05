@@ -1,0 +1,97 @@
+_format_version: "2.1"
+_transform: true
+
+services:
+  - name: auth-service
+    url: http://auth-service:3001
+    routes:
+      - name: auth-routes
+        paths:
+          - /api/v1/auth
+        strip_path: false
+    plugins:
+      - name: cors
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+
+  - name: workflow-service
+    url: http://workflow-service:3002
+    routes:
+      - name: workflow-routes
+        paths:
+          - /api/v1/workflows
+        strip_path: false
+    plugins:
+      - name: cors
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+
+  - name: integration-service
+    url: http://integration-service:3003
+    routes:
+      - name: integration-routes
+        paths:
+          - /api/v1/integrations
+        strip_path: false
+    plugins:
+      - name: cors
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+
+  - name: ai-service
+    url: http://ai-service:3004
+    routes:
+      - name: ai-routes
+        paths:
+          - /api/v1/ai
+        strip_path: false
+    plugins:
+      - name: cors
+      - name: rate-limiting
+        config:
+          minute: 50
+          hour: 500
+
+  - name: analytics-service
+    url: http://analytics-service:3005
+    routes:
+      - name: analytics-routes
+        paths:
+          - /api/v1/analytics
+        strip_path: false
+    plugins:
+      - name: cors
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+
+  - name: notification-service
+    url: http://notification-service:3006
+    routes:
+      - name: notification-routes
+        paths:
+          - /api/v1/notifications
+        strip_path: false
+    plugins:
+      - name: cors
+      - name: rate-limiting
+        config:
+          minute: 100
+          hour: 1000
+
+  - name: frontend
+    url: http://frontend:3000
+    routes:
+      - name: frontend-routes
+        paths:
+          - /
+        strip_path: false
+    plugins:
+      - name: cors 
